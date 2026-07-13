@@ -14,4 +14,11 @@ class Item {
       counter: Counter.fromJson(item),
     );
   }
+
+  factory Item.empty() {
+    return Item(
+      generalProperty: GeneralProperty.empty(),
+      counter: Counter.empty(),
+    );
+  }
 }

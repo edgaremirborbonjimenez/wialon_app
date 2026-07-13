@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:wialon_app/env/env.dart';
+import 'package:wialon_app/config/env/env.dart';
 import 'package:wialon_app/src/data/api/interceptors/AuthInterceptor.dart';
 import 'package:wialon_app/src/data/dataSource/local/AuthStorage.dart';
 

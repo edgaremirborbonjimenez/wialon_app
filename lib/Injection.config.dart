@@ -22,6 +22,9 @@ import 'package:wialon_app/src/data/repository/ItemRepositoryImpl.dart'
     as _i690;
 import 'package:wialon_app/src/di/AppModule.dart' as _i862;
 import 'package:wialon_app/src/domain/repository/ItemRepository.dart' as _i407;
+import 'package:wialon_app/src/domain/useCase/item/ItemUseCases.dart' as _i511;
+import 'package:wialon_app/src/domain/useCase/item/SearchItemUseCase.dart'
+    as _i22;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -47,6 +50,12 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i407.ItemRepository>(
       () => _i690.ItemRepositoryImpl(gh<_i492.ItemService>()),
+    );
+    gh.lazySingleton<_i22.SearchItemUseCase>(
+      () => _i22.SearchItemUseCase(gh<_i407.ItemRepository>()),
+    );
+    gh.lazySingleton<_i511.ItemUseCases>(
+      () => _i511.ItemUseCases(searchItemUseCase: gh<_i22.SearchItemUseCase>()),
     );
     return this;
   }

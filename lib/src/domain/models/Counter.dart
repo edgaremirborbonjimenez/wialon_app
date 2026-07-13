@@ -17,4 +17,13 @@ class Counter {
     engineHoursCounter: json['cneh'],
     gprsTrafficCounter: json['cnkb'],
   );
+
+  factory Counter.empty() {
+    return Counter(
+      calculationFlag: 0,
+      mileageCounter: 0,
+      engineHoursCounter: 0,
+      gprsTrafficCounter: 0,
+    );
+  }
 }

@@ -1,7 +1,8 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:wialon_app/env/env.dart';
+import 'package:wialon_app/config/env/env.dart';
 import 'package:wialon_app/src/data/api/exceptions/SessionExpiredException.dart';
 import 'package:wialon_app/src/data/api/utils/HttpErrorResponse.dart';
 import 'package:wialon_app/src/data/dataSource/local/AuthStorage.dart';
@@ -40,7 +41,7 @@ class AuthInterceptor extends Interceptor {
     if (data is Map<String, dynamic> && data['error'] != null) {
       final error = data['error'];
       final customException = _buildDioException(response, error);
-      return handler.reject(customException);
+      return handler.reject(customException, true);
     }
     return handler.next(response);
   }
@@ -104,7 +105,7 @@ class AuthInterceptor extends Interceptor {
         '',
         queryParameters: {
           'svc': 'token/login',
-          'params': {'token': Env.token},
+          'params': jsonEncode({'token': Env.token}),
         },
       );
       AuthResponse authResponse = AuthResponse.fromJson(response.data);

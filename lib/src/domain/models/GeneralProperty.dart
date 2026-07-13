@@ -21,4 +21,14 @@ class GeneralProperty {
         id: json['id'],
         currentUserAccessLevel: json['uacl'],
       );
+
+  factory GeneralProperty.empty() {
+    return GeneralProperty(
+      measureUnit: 0,
+      name: '---',
+      superClassId: 0,
+      id: 0,
+      currentUserAccessLevel: 0,
+    );
+  }
 }

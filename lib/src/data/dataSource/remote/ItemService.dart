@@ -1,6 +1,8 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:wialon_app/env/env.dart';
+import 'package:wialon_app/config/env/env.dart';
 import 'package:wialon_app/src/data/api/ApiClientDio.dart';
 import 'package:wialon_app/src/data/dataSource/local/AuthStorage.dart';
 import 'package:wialon_app/src/domain/models/Item.dart';
@@ -19,10 +21,8 @@ class ItemService {
         '',
         queryParameters: {
           'svc': 'core/search_item',
-          'params': {
-            {"id": Env.itemId, "flags": 8193},
-          },
-          'sid': sessionId,
+          'params': jsonEncode({"id": Env.itemId, "flags": 8193}),
+          'sid': sessionId ?? '',
         },
       );
       Item item = Item.fromJson(response.data);
