@@ -17,7 +17,7 @@ class ItemPage extends StatefulWidget {
 class _ItemPageState extends State<ItemPage> {
   @override
   Widget build(BuildContext context) {
-    Item item = Item.empty();
+    Item item = Item();
     return Scaffold(
       body: BlocListener<ItemBloc, ItemState>(
         listener: (context, state) {
@@ -36,7 +36,7 @@ class _ItemPageState extends State<ItemPage> {
 
             final isLoading = isLoadingState(state);
             if (isLoading) {
-              item = Item.empty();
+              item = Item();
             }
             if (response is Success) {
               item = response.data as Item;

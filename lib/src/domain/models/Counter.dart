@@ -5,10 +5,10 @@ class Counter {
   int gprsTrafficCounter;
 
   Counter({
-    required this.calculationFlag,
-    required this.mileageCounter,
-    required this.engineHoursCounter,
-    required this.gprsTrafficCounter,
+    this.calculationFlag = 0,
+    this.mileageCounter = 0,
+    this.engineHoursCounter = 0,
+    this.gprsTrafficCounter = 0,
   });
 
   factory Counter.fromJson(Map<String, dynamic> json) => Counter(
@@ -17,13 +17,4 @@ class Counter {
     engineHoursCounter: json['cneh'],
     gprsTrafficCounter: json['cnkb'],
   );
-
-  factory Counter.empty() {
-    return Counter(
-      calculationFlag: 0,
-      mileageCounter: 0,
-      engineHoursCounter: 0,
-      gprsTrafficCounter: 0,
-    );
-  }
 }

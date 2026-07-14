@@ -8,6 +8,7 @@ import 'package:wialon_app/config/theme/AppColors.dart';
 import 'package:wialon_app/src/BlocProvider.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await configureDependencies();
   runApp(const MainApp());
 }

@@ -12,9 +12,12 @@ class ItemBloc extends Bloc<ItemEvent, ItemState> {
     on<ItemInitEvent>(_onInitEvent);
     on<SearchItem>(_onSearchItem);
   }
-  Future<void> _onInitEvent(ItemInitEvent event, Emitter<ItemState> emit) async {
+  Future<void> _onInitEvent(
+    ItemInitEvent event,
+    Emitter<ItemState> emit,
+  ) async {
     emit(state.copyWith(response: Loading()));
-    Resource<Item> item = Success(Item.empty());
+    Resource<Item> item = Success(Item());
     emit(state.copyWith(response: item));
   }
 
