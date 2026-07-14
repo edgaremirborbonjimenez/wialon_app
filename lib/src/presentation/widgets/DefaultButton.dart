@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wialon_app/config/theme/AppColors.dart';
 
 class DefaultButton extends StatelessWidget {
   final String text;
@@ -24,7 +25,7 @@ class DefaultButton extends StatelessWidget {
       height: height ?? 56,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: color ?? theme.colorScheme.primary,
+          backgroundColor: color ?? AppColors.primary,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),

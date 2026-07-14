@@ -4,5 +4,5 @@ class MileageTrend {
   int difference;
   MileageTrendEnum trend;
 
-  MileageTrend({this.trend = MileageTrendEnum.unkown, this.difference = 0});
+  MileageTrend({this.trend = MileageTrendEnum.start, this.difference = 0});
 }

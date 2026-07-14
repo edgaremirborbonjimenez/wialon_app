@@ -1,1 +1,1 @@
-enum MileageTrendEnum { up, same, unkown }
+enum MileageTrendEnum { up, same, start,firstRequest }

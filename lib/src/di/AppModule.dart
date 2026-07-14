@@ -10,7 +10,12 @@ abstract class AppModule {
   Future<SharedPreferencesWithCache> get sharedPrefCache =>
       SharedPreferencesWithCache.create(
         cacheOptions: const SharedPreferencesWithCacheOptions(
-          allowList: <String>{SharedPreferencesKeys.lastKm},
+          allowList: <String>{
+            SharedPreferencesKeys.lastKm,
+            SharedPreferencesKeys.nameUnit,
+            SharedPreferencesKeys.lastTrend,
+            SharedPreferencesKeys.lastDifference,
+          },
         ),
       );
 

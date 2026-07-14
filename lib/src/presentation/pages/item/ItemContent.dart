@@ -31,11 +31,11 @@ class ItemContent extends StatelessWidget {
                     const SizedBox(height: 16),
                     Header(title: title),
                     const SizedBox(height: 20),
-                    _buildInfoCard(context, item),
+                    _buildInfoCard(context, item), //TODO hacer para que si el nombre de la unidad ya fue consultado y no a cambiado, que no se cambie al momento de cargar
                     const Spacer(),
                     _buildMileageCounter(context, item),
                     const SizedBox(height: 24),
-                    _mileageChange(context, item),
+                    !isLoading ? _mileageChange(context, item) : const SizedBox(height: 66,), //TODO Ver si es correcto hacer esto
                     const Spacer(),
                     DefaultButton(
                       text: isLoading
@@ -60,40 +60,43 @@ class ItemContent extends StatelessWidget {
   Widget _mileageChange(BuildContext context, Item item) {
     final (icon, text, subtext, temeColor) = _getTrendInfo(item);
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-      decoration: BoxDecoration(
-        color: AppColors.cardBackground,
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: AppColors.cardBorder),
-      ),
-      child: Row(
-        children: [
-          Icon(icon, color: temeColor),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            decoration: BoxDecoration(
+              color: AppColors.cardBackground,
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(color: AppColors.cardBorder),
+            ),
+            child: Row(
               children: [
-                Text(
-                  text,
-                  style: TextStyle(
-                    color: temeColor,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w500,
+                Icon(icon, color: temeColor),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        text,
+                        style: TextStyle(
+                          color: temeColor,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      Text(
+                        subtext,
+                        style: TextStyle(color: temeColor, fontSize: 12),
+                      ),
+                    ],
                   ),
                 ),
-                Text(subtext, style: TextStyle(color: temeColor, fontSize: 12)),
               ],
             ),
-          ),
-        ],
-      ),
-    );
+          );
   }
 
   (IconData, String, String, Color) _getTrendInfo(Item item) {
-    return switch (item.mileageTrend?.trend) {
-      MileageTrendEnum.unkown => (
+    return switch (item.mileageTrend.trend) {
+      MileageTrendEnum.firstRequest => (
         Icons.more_horiz,
         "Primera carga del kilometraje",
         "No hay kilometraje a comparar",
@@ -108,13 +111,13 @@ class ItemContent extends StatelessWidget {
       MileageTrendEnum.up => (
         Icons.trending_up,
         "El kilometraje ha aumentado",
-        "+${item.mileageTrend?.difference} km desde la última consulta",
+        "+${item.mileageTrend.difference} km desde la última consulta",
         AppColors.success,
       ),
       _ => (
-        Icons.help_outline,
-        "Sin información de tendencia",
-        "No se pudo determinar la tendencia del kilometraje",
+        Icons.remove,
+        "Problema al cargar kilometraje",
+        "No se pudo determinar la variación del kilometraje",
         AppColors.textPrimary,
       ),
     };
@@ -122,6 +125,7 @@ class ItemContent extends StatelessWidget {
 
   Widget _buildMileageCounter(BuildContext context, Item item) {
     final km = item.counter.mileageCounter;
+    final trend = item.mileageTrend.trend;
     return Column(
       children: [
         Center(
@@ -137,7 +141,9 @@ class ItemContent extends StatelessWidget {
               children: [
                 const Icon(Icons.speed, color: AppColors.primary, size: 22),
                 Text(
-                  isLoading ? '---' : _formatKm(km),
+                  (isLoading || trend == MileageTrendEnum.start)
+                      ? '---'
+                      : _formatKm(km),
                   style: TextStyle(
                     color: AppColors.textSecondary,
                     fontSize: 28,

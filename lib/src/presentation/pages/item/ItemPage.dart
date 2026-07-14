@@ -47,7 +47,7 @@ class _ItemPageState extends State<ItemPage> {
                 ItemContent(item, isLoading: isLoading),
                 if (isLoading)
                   SafeArea(
-                    child: const Center(child: CircularProgressIndicator()),
+                    child: const Center(child: CircularProgressIndicator()), //TODO Actualizarlo a que sea animacion de iconos cargando
                   ),
               ],
             );

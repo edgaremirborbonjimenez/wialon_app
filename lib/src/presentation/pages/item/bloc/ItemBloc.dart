@@ -17,7 +17,7 @@ class ItemBloc extends Bloc<ItemEvent, ItemState> {
     Emitter<ItemState> emit,
   ) async {
     emit(state.copyWith(response: Loading()));
-    Resource<Item> item = Success(Item());
+    Resource<Item> item = await itemUseCases.getLastItemResultUseCase.run();
     emit(state.copyWith(response: item));
   }
 

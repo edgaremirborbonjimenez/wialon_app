@@ -14,4 +14,9 @@ class ItemRepositoryImpl extends ItemRepository {
   Future<Resource<Item>> searchItem() {
     return _itemService.searchItem();
   }
+
+  @override
+  Future<Resource<Item>> getLastItemResult() {
+    return _itemService.getLastItemResult();
+  }
 }
