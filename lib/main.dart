@@ -7,7 +7,7 @@ import 'package:wialon_app/config/routes/AppRoutes.dart';
 import 'package:wialon_app/config/theme/AppColors.dart';
 import 'package:wialon_app/src/BlocProvider.dart';
 
-void main() async{
+void main() async {
   await configureDependencies();
   runApp(const MainApp());
 }
@@ -20,6 +20,7 @@ class MainApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: blocProviders,
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         builder: (context, child) {
           return FToastBuilder()(context, child);
         },
@@ -27,7 +28,7 @@ class MainApp extends StatelessWidget {
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
             seedColor: AppColors.primary,
-            brightness: Brightness.light,
+            brightness: Brightness.dark,
           ),
         ),
         initialRoute: AppRoutes.item,

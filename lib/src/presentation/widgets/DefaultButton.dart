@@ -21,7 +21,7 @@ class DefaultButton extends StatelessWidget {
     final theme = Theme.of(context);
     return SizedBox(
       width: double.infinity,
-      height: height ?? 50,
+      height: height ?? 56,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: color ?? theme.colorScheme.primary,
@@ -39,8 +39,10 @@ class DefaultButton extends StatelessWidget {
             ],
             Text(
               text,
-              style: theme.textTheme.labelLarge?.copyWith(
+              style: TextStyle(
                 color: theme.colorScheme.onPrimary,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 0.5,
               ),
             ),
           ],
