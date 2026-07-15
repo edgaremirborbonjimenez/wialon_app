@@ -17,7 +17,6 @@ class ItemPage extends StatefulWidget {
 class _ItemPageState extends State<ItemPage> {
   @override
   Widget build(BuildContext context) {
-    Item item = Item();
     return Scaffold(
       body: BlocListener<ItemBloc, ItemState>(
         listener: (context, state) {
@@ -32,7 +31,9 @@ class _ItemPageState extends State<ItemPage> {
         },
         child: BlocBuilder<ItemBloc, ItemState>(
           builder: (context, state) {
+            Item item = Item();
             final response = state.response;
+            final isInit = state.isInit;
 
             final isLoading = isLoadingState(state);
             if (isLoading) {
@@ -46,7 +47,7 @@ class _ItemPageState extends State<ItemPage> {
 
             return Stack(
               children: [
-                ItemContent(item, isLoading: isLoading),
+                ItemContent(item, isLoading: isLoading,isInit: isInit,),
                 if (isLoading)
                   SafeArea(
                     child: const Center(

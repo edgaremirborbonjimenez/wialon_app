@@ -5,6 +5,7 @@ import 'package:wialon_app/src/domain/models/Item.dart';
 import 'package:wialon_app/src/domain/utils/MileageTrendEnum.dart';
 import 'package:wialon_app/src/presentation/pages/item/bloc/ItemBloc.dart';
 import 'package:wialon_app/src/presentation/pages/item/bloc/ItemEvent.dart';
+import 'package:wialon_app/src/presentation/widgets/DefaultBanner.dart';
 import 'package:wialon_app/src/presentation/widgets/DefaultButton.dart';
 import 'package:wialon_app/src/presentation/widgets/Header.dart';
 
@@ -12,8 +13,13 @@ class ItemContent extends StatelessWidget {
   final String title;
   final Item item;
   final bool isLoading;
-  const ItemContent(this.item, {this.isLoading = false, super.key})
-    : title = 'Control de Kilometraje';
+  final bool isInit;
+  const ItemContent(
+    this.item, {
+    this.isLoading = false,
+    this.isInit = false,
+    super.key,
+  }) : title = 'Control de Kilometraje';
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +37,8 @@ class ItemContent extends StatelessWidget {
                     const SizedBox(height: 16),
                     Header(title: title),
                     const SizedBox(height: 20),
-                    _buildInfoCard(
-                      context,
-                      item,
-                    ),
+                    _buildInfoCard(context, item),
+                    if (isInit && !isLoading) _lastDadaLoadedBanner(context),
                     const Spacer(),
                     _buildMileageCounter(context, item),
                     const SizedBox(height: 24),
@@ -64,6 +68,10 @@ class ItemContent extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _lastDadaLoadedBanner(BuildContext context) {
+    return DefaultBanner(text: 'Estos son los últimos datos cargados');
   }
 
   Widget _mileageChange(BuildContext context, Item item) {
@@ -152,10 +160,7 @@ class ItemContent extends StatelessWidget {
                       : _formatKm(km),
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
-                Text(
-                  'km',
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
+                Text('km', style: Theme.of(context).textTheme.bodyMedium),
               ],
             ),
           ),
@@ -200,13 +205,11 @@ class ItemContent extends StatelessWidget {
                         Text(
                           'UNIDAD',
                           style: Theme.of(context).textTheme.labelSmall,
-
                         ),
                         const SizedBox(height: 4),
                         Text(
                           name,
                           style: Theme.of(context).textTheme.titleMedium,
-
                         ),
                       ],
                     ),

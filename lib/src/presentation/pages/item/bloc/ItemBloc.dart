@@ -18,7 +18,8 @@ class ItemBloc extends Bloc<ItemEvent, ItemState> {
   ) async {
     emit(state.copyWith(response: Loading()));
     Resource<Item> item = await itemUseCases.getLastItemResultUseCase.run();
-    emit(state.copyWith(response: item));
+    final isInit = !(item as Success<Item>).data.mileageTrend.isStarting;
+    emit(state.copyWith(response: item, isInit: isInit));
   }
 
   Future<void> _onSearchItem(SearchItem event, Emitter<ItemState> emit) async {
