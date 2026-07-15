@@ -39,7 +39,7 @@ class ItemContent extends StatelessWidget {
                     _buildMileageCounter(context, item),
                     const SizedBox(height: 24),
                     Visibility(
-                      visible: !isLoading,
+                      visible: !isLoading && !item.mileageTrend.isStarting,
                       maintainSize: true,
                       maintainAnimation: true,
                       maintainState: true,

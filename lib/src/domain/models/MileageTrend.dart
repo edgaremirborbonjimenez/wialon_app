@@ -5,4 +5,6 @@ class MileageTrend {
   MileageTrendEnum trend;
 
   MileageTrend({this.trend = MileageTrendEnum.start, this.difference = 0});
+
+  bool get isStarting  => trend == MileageTrendEnum.start;
 }
