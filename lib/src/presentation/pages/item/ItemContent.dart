@@ -18,7 +18,7 @@ class ItemContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColors.background,
+      color: Theme.of(context).scaffoldBackgroundColor,
       child: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -31,11 +31,20 @@ class ItemContent extends StatelessWidget {
                     const SizedBox(height: 16),
                     Header(title: title),
                     const SizedBox(height: 20),
-                    _buildInfoCard(context, item), //TODO hacer para que si el nombre de la unidad ya fue consultado y no a cambiado, que no se cambie al momento de cargar
+                    _buildInfoCard(
+                      context,
+                      item,
+                    ),
                     const Spacer(),
                     _buildMileageCounter(context, item),
                     const SizedBox(height: 24),
-                    !isLoading ? _mileageChange(context, item) : const SizedBox(height: 66,), //TODO Ver si es correcto hacer esto
+                    Visibility(
+                      visible: !isLoading,
+                      maintainSize: true,
+                      maintainAnimation: true,
+                      maintainState: true,
+                      child: _mileageChange(context, item),
+                    ),
                     const Spacer(),
                     DefaultButton(
                       text: isLoading
@@ -60,38 +69,35 @@ class ItemContent extends StatelessWidget {
   Widget _mileageChange(BuildContext context, Item item) {
     final (icon, text, subtext, temeColor) = _getTrendInfo(item);
     return Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-            decoration: BoxDecoration(
-              color: AppColors.cardBackground,
-              borderRadius: BorderRadius.circular(14),
-              border: Border.all(color: AppColors.cardBorder),
-            ),
-            child: Row(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      decoration: BoxDecoration(
+        color: Theme.of(context).cardTheme.color,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: AppColors.cardBorder),
+      ),
+      child: Row(
+        children: [
+          Icon(icon, color: temeColor),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(icon, color: temeColor),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        text,
-                        style: TextStyle(
-                          color: temeColor,
-                          fontSize: 13,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      Text(
-                        subtext,
-                        style: TextStyle(color: temeColor, fontSize: 12),
-                      ),
-                    ],
+                Text(
+                  text,
+                  style: TextStyle(
+                    color: temeColor,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
+                Text(subtext, style: TextStyle(color: temeColor, fontSize: 12)),
               ],
             ),
-          );
+          ),
+        ],
+      ),
+    );
   }
 
   (IconData, String, String, Color) _getTrendInfo(Item item) {
@@ -144,17 +150,11 @@ class ItemContent extends StatelessWidget {
                   (isLoading || trend == MileageTrendEnum.start)
                       ? '---'
                       : _formatKm(km),
-                  style: TextStyle(
-                    color: AppColors.textSecondary,
-                    fontSize: 28,
-                  ),
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
                 Text(
                   'km',
-                  style: TextStyle(
-                    color: AppColors.textSecondary,
-                    fontSize: 12,
-                  ),
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
               ],
             ),
@@ -163,11 +163,7 @@ class ItemContent extends StatelessWidget {
         const SizedBox(height: 20),
         Text(
           'DISTANCIA RECORRIDA TOTAL',
-          style: TextStyle(
-            color: AppColors.textSecondary,
-            fontSize: 11,
-            letterSpacing: 1,
-          ),
+          style: Theme.of(context).textTheme.bodySmall,
         ),
       ],
     );
@@ -203,20 +199,14 @@ class ItemContent extends StatelessWidget {
                       children: [
                         Text(
                           'UNIDAD',
-                          style: TextStyle(
-                            color: AppColors.textSecondary,
-                            fontSize: 11,
-                            letterSpacing: 1,
-                          ),
+                          style: Theme.of(context).textTheme.labelSmall,
+
                         ),
                         const SizedBox(height: 4),
                         Text(
                           name,
-                          style: const TextStyle(
-                            color: AppColors.textPrimary,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: Theme.of(context).textTheme.titleMedium,
+
                         ),
                       ],
                     ),
@@ -225,7 +215,7 @@ class ItemContent extends StatelessWidget {
                     height: 40,
                     width: 40,
                     decoration: BoxDecoration(
-                      color: AppColors.primary.withOpacity(0.15),
+                      color: AppColors.primary.withValues(alpha: 0.15),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: const Icon(

@@ -36,7 +36,9 @@ class _ItemPageState extends State<ItemPage> {
 
             final isLoading = isLoadingState(state);
             if (isLoading) {
+              final name = item.generalProperty.name;
               item = Item();
+              item.generalProperty.name = name;
             }
             if (response is Success) {
               item = response.data as Item;
@@ -47,7 +49,9 @@ class _ItemPageState extends State<ItemPage> {
                 ItemContent(item, isLoading: isLoading),
                 if (isLoading)
                   SafeArea(
-                    child: const Center(child: CircularProgressIndicator()), //TODO Actualizarlo a que sea animacion de iconos cargando
+                    child: const Center(
+                      child: CircularProgressIndicator(),
+                    ), //TODO Actualizarlo a que sea animacion de iconos cargando
                   ),
               ],
             );

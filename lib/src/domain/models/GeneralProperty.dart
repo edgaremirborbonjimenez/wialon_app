@@ -13,6 +13,8 @@ class GeneralProperty {
     this.currentUserAccessLevel = 0,
   });
 
+  bool get isDefault => name == '---';
+
   factory GeneralProperty.fromJson(Map<String, dynamic> json) =>
       GeneralProperty(
         measureUnit: json['mu'],

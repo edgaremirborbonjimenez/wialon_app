@@ -5,6 +5,7 @@ import 'package:wialon_app/Injection.dart';
 import 'package:wialon_app/config/routes/AppRouter.dart';
 import 'package:wialon_app/config/routes/AppRoutes.dart';
 import 'package:wialon_app/config/theme/AppColors.dart';
+import 'package:wialon_app/config/theme/AppTheme.dart';
 import 'package:wialon_app/src/BlocProvider.dart';
 
 void main() async {
@@ -26,12 +27,7 @@ class MainApp extends StatelessWidget {
           return FToastBuilder()(context, child);
         },
         title: 'Wialson',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: AppColors.primary,
-            brightness: Brightness.dark,
-          ),
-        ),
+        theme: AppTheme.darkTheme,
         initialRoute: AppRoutes.item,
         onGenerateRoute: AppRouter.onGenerateRoute,
       ),

@@ -6,12 +6,7 @@ class Header extends StatelessWidget {
   final IconData? icon;
   final Color? color;
 
-  const Header({
-    super.key,
-    required this.title,
-    this.icon,
-    this.color,
-  });
+  const Header({super.key, required this.title, this.icon, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -23,16 +18,18 @@ class Header extends StatelessWidget {
             if (icon != null) ...[
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Icon(icon, size: 40),
+                child: Icon(
+                  icon,
+                  size: 40,
+                  color: Theme.of(context).colorScheme.onPrimary,
+                ),
               ),
             ],
             Text(
               title,
-              style: TextStyle(
-                color: AppColors.textPrimary,
-                fontSize: 26,
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(
+                context,
+              ).textTheme.titleLarge?.copyWith(color: color),
             ),
           ],
         ),

@@ -86,7 +86,7 @@ class ItemService {
       print("DIO ERROR : ${e.message}");
       return Error('No se pudo consultar el kilometraje, favor de intentarlo mas tarde');
     } catch (e) {
-      print("GENERAL ERROR : ${e}");
+      print("GENERAL ERROR : ${e.toString()}");
       return Error("Ocurrió un error al consultar el kilometraje");
     }
   }
